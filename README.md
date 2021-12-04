@@ -7,7 +7,8 @@
 1. Прописать в server.cfg game_description_override "Ваш текст"
 2. Поместить game_description_override_steamworks.sp по пути /addons/sourcemod/scripting
 3. Поместить game_description_override_steamworks.smx по пути /addons/sourcemod/plugins
-4. Перезапустить сервер.
+4. Установить SteamWorks под вашу платформу https://users.alliedmods.net/~kyles/builds/SteamWorks/
+5. Перезапустить сервер.
 
 - Контакты для связи при возникновении проблемы/предложений:
 
