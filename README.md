@@ -1,7 +1,7 @@
 # -SteamWorks-Game-Description-Override
-Переопределяет описание "Игра" в браузере сервера с помощью [SteamWorks]
-
 - Поддерживаемые игры	CS: Source (OrangeBox), CS: GO.
+- Описание: Переопределяет описание "Игра" в браузере сервера с помощью [SteamWorks]
+
 - Установка:
 
 1. Прописать в server.cfg game_description_override "Ваш текст"
