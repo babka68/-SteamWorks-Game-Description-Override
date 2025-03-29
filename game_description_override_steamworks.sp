@@ -2,7 +2,6 @@
 // EN: Connects the specified file/library
 // RU: Подключает указанный файл/библиотеку
 // ==========================================================================================================*/
-
 #include <SteamWorks>
 
 /* ============================================================================================================
@@ -46,14 +45,15 @@ public void OnPluginStart()
 	cvar.GetString(g_sDescription, sizeof(g_sDescription));
 	
 	AutoExecConfig(true, "game_description_override");
+	Set();
 }
 
 public void ChangedGameDescription(ConVar cvar, const char[] oldVal, const char[] newVal)
 {
-	cvar.GetString(g_sDescription, sizeof(g_sDescription)); Set();
+	cvar.GetString(g_sDescription, sizeof(g_sDescription));
 }
 
 public void Set()
 {
 	SteamWorks_SetGameDescription(g_sDescription);
-} 
+}
