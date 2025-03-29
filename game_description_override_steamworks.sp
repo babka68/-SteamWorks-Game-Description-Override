@@ -1,26 +1,59 @@
+/* ============================================================================================================
+// EN: Connects the specified file/library
+// RU: Подключает указанный файл/библиотеку
+// ==========================================================================================================*/
+
 #include <SteamWorks>
+
+/* ============================================================================================================
+// EN: Notifies the compiler that there should be a character at the end of each expression ;
+// RU: Сообщает компилятору о том, что в конце каждого выражения должен стоять символ ;
+// ==========================================================================================================*/
+
 #pragma semicolon 1
+/* =============================================================================================================
+// EN: Notifies the compiler that the plugin syntax is exceptionally new
+// RU: Сообщает компилятору о том, что синтаксис плагина исключительно новый
+// ===========================================================================================================*/
 #pragma newdecls required
 
-char g_sDescription[MAX_TARGET_LENGTH];
-
-public Plugin myinfo =  {
-	name = "[SteamWorks] Game Description Override", 
+/* =============================================================================================================
+// EN: Public information about the plugin.
+// RU: Общественная информация о плагине.
+// ===========================================================================================================*/
+public Plugin myinfo = 
+{
+	name = "[SteamWorks] --- Game Description Override", 
 	author = "babka68", 
 	description = "Переопределяет описание игры в браузере сервера с помощью SteamWorks", 
-	version = "1.0", 
-	url = "https://vk.com/zakazserver68", 
+	version = "1.1", 
+	url = "vk.com/zakazserver68", 
 };
 
-public void OnPluginStart() {
+char g_sDescription[MAX_TARGET_LENGTH];
+/* =============================================================================================================
+// EN: A built-in global event whose function is a single call when the plugin is fully initialized.
+// RU: Встроенное глобальное событие, функция которого - единождый вызов при полной инициализации плагина.
+// =============================================================================================================*/
+public void OnPluginStart()
+{
+	if (!LibraryExists("SteamWorks"))
+		SetFailState("Не загружена библиотека SteamWorks");
+	
 	ConVar cvar;
-	cvar = CreateConVar("game_description_override", "https://vk.com/zakazserver68", "Ваш текст в названии игры");
-	GetConVarString(cvar, g_sDescription, sizeof(g_sDescription));
-	HookConVarChange(cvar, CvarChanged);
-	SteamWorks_SetGameDescription(g_sDescription);
+	cvar = CreateConVar("game_description_override", "vk.com/zakazserver68", "Ваш текст в названии игры");
+	cvar.AddChangeHook(ChangedGameDescription);
+	cvar.GetString(g_sDescription, sizeof(g_sDescription));
+	
+	AutoExecConfig(true, "game_description_override");
 }
 
-public void CvarChanged(Handle cvar, const char[] oldVal, const char[] newVal) {
-	GetConVarString(cvar, g_sDescription, sizeof(g_sDescription));
+public void ChangedGameDescription(ConVar cvar, const char[] oldVal, const char[] newVal)
+{
+	cvar.GetString(g_sDescription, sizeof(g_sDescription)); Set();
+}
+
+public void Set()
+{
 	SteamWorks_SetGameDescription(g_sDescription);
 } 
